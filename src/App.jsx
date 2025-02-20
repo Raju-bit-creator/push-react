@@ -6,13 +6,24 @@ import Footer from "./components/Footer";
 
 function App() {
   const [count, setCount] = useState(0);
+  const [title, setTitle] = useState("first project");
+  const [text, setText] = useState("Enable dark");
+  const [mode, setMode] = useState("light");
   const handleClick = () => {
     setCount(count + 1);
   };
 
+  const toggleMode = () => {
+    if (mode === "light") {
+      setMode("dark");
+    } else {
+      setMode("light");
+    }
+  };
+
   return (
     <>
-      <Navbar />
+      <Navbar toggleMode={toggleMode} title={title} text={text} mode={mode} />
       <Banner />
       <Testimonials />
       <Footer />
