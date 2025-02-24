@@ -1,9 +1,12 @@
 import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Banner from "./components/Banner";
-import Testimonials from "./components/Testimonials";
+
 import Footer from "./components/Footer";
 import Alert from "./components/Alert";
+import About from "./components/about";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -11,9 +14,6 @@ function App() {
   const [text, setText] = useState("Enable dark");
   const [mode, setMode] = useState("light");
   const [alert, setAlert] = useState(null);
-  const handleClick = () => {
-    setCount(count + 1);
-  };
 
   const showAlert = (type, message) => {
     setAlert({
@@ -39,15 +39,15 @@ function App() {
 
   return (
     <>
-      <Navbar toggleMode={toggleMode} title={title} text={text} mode={mode} />
-      <Alert alert={alert} />
-      <Banner />
-      <Testimonials />
-      <Footer />
-      <button className="btn btn-primary" onClick={handleClick}>
-        click me
-      </button>
-      <h3>count : {count}</h3>
+      <Router>
+        <Navbar toggleMode={toggleMode} title={title} text={text} mode={mode} />
+        <Alert alert={alert} />
+        <Banner />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </Router>
     </>
   );
 }
