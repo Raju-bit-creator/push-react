@@ -76,6 +76,31 @@ const Navbar = (props) => {
                   Disabled
                 </a>
               </li>
+              <li className="nav-item">
+                <a
+                  className="nav-link disabled"
+                  href="#"
+                  tabindex="-1"
+                  aria-disabled="true"
+                >
+                  Disabled
+                </a>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="profile">
+                  Profile
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="login">
+                  Login
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="signup">
+                  Signup
+                </Link>
+              </li>
             </ul>
             <button onClick={props.toggleMode} className="btn btn-primary">
               {props.text}
