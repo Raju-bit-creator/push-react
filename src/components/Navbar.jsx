@@ -101,6 +101,11 @@ const Navbar = (props) => {
                   Signup
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="users">
+                  User List
+                </Link>
+              </li>
             </ul>
             <button onClick={props.toggleMode} className="btn btn-primary">
               {props.text}

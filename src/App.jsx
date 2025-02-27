@@ -10,6 +10,8 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import Userlist from "./components/Userlist";
+import User from "./components/User";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -52,6 +54,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/:user_Id/:userName" element={<User />} />
+          <Route path="/users" element={<Userlist />} />
         </Routes>
       </Router>
     </>
