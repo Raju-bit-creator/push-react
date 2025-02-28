@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Navbar from "./components/Navbar";
-import Banner from "./components/Banner";
 
 import Footer from "./components/Footer";
 import Alert from "./components/Alert";
@@ -11,7 +10,7 @@ import Profile from "./components/Profile";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Userlist from "./components/Userlist";
-import User from "./components/User";
+import User from "./components/Userdetail";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -47,7 +46,7 @@ function App() {
       <Router>
         <Navbar toggleMode={toggleMode} title={title} text={text} mode={mode} />
         <Alert alert={alert} />
-        <Banner />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
