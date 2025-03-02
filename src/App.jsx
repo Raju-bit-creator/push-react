@@ -62,3 +62,15 @@ function App() {
 }
 
 export default App;
+
+// lifecylce methods in class based components
+// 1. constructor initialization // class based components
+// 2. componentDidMount()
+// 3. shouldComponentUpdate()
+// 4. componentDidUpdate()
+// 5. componentWillUnmount()
+
+// lifecylce methods in function based components
+// 1. mounting
+// 2. updation  //useffect hook
+// 3. unmounting

@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const About = () => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(""); //initialization
   const handleUppercase = () => {
     console.log("you click to uppercase");
-    setText(text.toUpperCase());
+    setText(text.toUpperCase()); //mounting and update
   };
+  // unmount
+  console.log("i a first"); //render
+
+  useEffect(() => {
+    console.log("i am useffect");
+  }, []);
   const handleLowercase = () => {
     console.log("you click to lowercase");
     setText(text.toLowerCase());
