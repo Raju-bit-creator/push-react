@@ -11,6 +11,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Userlist from "./components/Userlist";
 import User from "./components/Userdetail";
+import ClassBase from "./components/ClassBase";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -46,6 +47,7 @@ function App() {
       <Router>
         <Navbar toggleMode={toggleMode} title={title} text={text} mode={mode} />
         <Alert alert={alert} />
+        <ClassBase />
 
         <Routes>
           <Route path="/" element={<Home />} />

@@ -10,8 +10,8 @@ const About = () => {
   console.log("i a first"); //render
 
   useEffect(() => {
-    console.log("i am useffect");
-  }, []);
+    console.log("i am useffect", text);
+  }, [text]);
   const handleLowercase = () => {
     console.log("you click to lowercase");
     setText(text.toLowerCase());
@@ -52,3 +52,27 @@ const About = () => {
 };
 
 export default About;
+
+// import React, { useEffect, useState } from 'react'
+
+// const about = () => {
+//   const [count, setCount]= useState(1)
+//   //mounting phase
+//   useEffect(()=>{
+//     console.log("i am useffect")
+//   },[])
+//   //updating phase
+//   useEffect(()=>{
+//     console.log("i am useffect")
+//   },[])
+
+//   // unmounting phase
+
+//   return (
+//     <div>
+
+//     </div>
+//   )
+// }
+
+// export default about
