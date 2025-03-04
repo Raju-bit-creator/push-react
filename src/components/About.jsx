@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import productContext from "../context/productContext";
 
 const About = () => {
+  const context = useContext(productContext);
+  const { s } = context;
+  console.log("ddddd", s);
+
   const [text, setText] = useState(""); //initialization
   const handleUppercase = () => {
     console.log("you click to uppercase");
@@ -46,6 +51,11 @@ const About = () => {
         <h4>preview</h4>
 
         <p>{text}</p>
+        <p>
+          my friend name is {s.name} and his age is {s.age} and he is reading in
+          class
+          {s.class}
+        </p>
       </div>
     </div>
   );
