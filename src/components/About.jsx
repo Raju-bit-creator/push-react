@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import productContext from "../context/productContext";
+import dog from "../assets/dog.jpg";
 
 const About = () => {
   const context = useContext(productContext);
-  const { s } = context;
+  const { s, product } = context;
   console.log("ddddd", s);
+  console.log("111111111 product", product);
 
   const [text, setText] = useState(""); //initialization
   const handleUppercase = () => {
@@ -57,32 +59,29 @@ const About = () => {
           {s.class}
         </p>
       </div>
+      <div className="row">
+        {product.map((e) => {
+          return (
+            <div className="col-md-3">
+              <div key={e.id}>
+                <div class="card">
+                  <img src={dog} class="card-img-top" alt="..." />
+                  <div class="card-body">
+                    <h5 class="card-title">{e.title}</h5>
+                    <p class="card-text">{e.description}</p>
+                    <h4>Price: Rs.{e.price}</h4>
+                    <a href="#" class="btn btn-primary">
+                      Add to cart
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
 
 export default About;
-
-// import React, { useEffect, useState } from 'react'
-
-// const about = () => {
-//   const [count, setCount]= useState(1)
-//   //mounting phase
-//   useEffect(()=>{
-//     console.log("i am useffect")
-//   },[])
-//   //updating phase
-//   useEffect(()=>{
-//     console.log("i am useffect")
-//   },[])
-
-//   // unmounting phase
-
-//   return (
-//     <div>
-
-//     </div>
-//   )
-// }
-
-// export default about
