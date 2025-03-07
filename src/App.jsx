@@ -54,7 +54,7 @@ function App() {
             mode={mode}
           />
           <Alert alert={alert} />
-          <ClassBase />
+          {/* <ClassBase /> */}
 
           <Routes>
             <Route path="/" element={<Home />} />
