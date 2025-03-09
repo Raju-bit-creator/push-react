@@ -6,7 +6,7 @@ const About = () => {
   const context = useContext(productContext);
   const { s, product, fetchData, articles } = context;
   console.log("ddddd", s);
-  console.log("111111111 product", product);
+  console.log("total articles:", articles);
 
   const [text, setText] = useState(""); //initialization
   const handleUppercase = () => {
@@ -70,13 +70,17 @@ const About = () => {
             <div className="col-md-3">
               <div key={e.id}>
                 <div class="card">
-                  <img src={e.urlToImage} class="card-img-top" alt="..." />
+                  <img
+                    src={e.urlToImage || dog}
+                    class="card-img-top"
+                    alt={e.author}
+                  />
                   <div class="card-body">
                     <h5 class="card-title">{e.title}</h5>
                     <p class="card-text">{e.description}</p>
                     {/* <h4>Price: Rs.{e.price}</h4> */}
-                    <a href="#" class="btn btn-primary">
-                      Add to cart
+                    <a href={e.url} target="_blank" class="btn btn-primary">
+                      Read more
                     </a>
                   </div>
                 </div>
