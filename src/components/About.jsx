@@ -4,37 +4,37 @@ import dog from "../assets/dog.jpg";
 
 const About = () => {
   const context = useContext(productContext);
-  const { s, product, fetchData, articles } = context;
-  console.log("ddddd", s);
-  console.log("total articles:", articles);
+  const {
+    state: { cart },
+    product,
+  } = context;
+  // console.log("this is state cart", state.cart);
 
-  const [text, setText] = useState(""); //initialization
-  const handleUppercase = () => {
-    console.log("you click to uppercase");
-    setText(text.toUpperCase()); //mounting and update
-  };
-  // unmount
-  console.log("i a first"); //render
+  console.log("total products:", product);
 
-  useEffect(() => {
-    console.log("i am useffect", text);
-  }, [text]);
-  const handleLowercase = () => {
-    console.log("you click to lowercase");
-    setText(text.toLowerCase());
-  };
-  const handleChange = (e) => {
-    setText(e.target.value);
-  };
+  // const [text, setText] = useState(""); //initialization
+  // const handleUppercase = () => {
+  //   console.log("you click to uppercase");
+  //   setText(text.toUpperCase()); //mounting and update
+  // };
+  // // unmount
+  // console.log("i a first"); //render
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   console.log("i am useffect", text);
+  // }, [text]);
+  // const handleLowercase = () => {
+  //   console.log("you click to lowercase");
+  //   setText(text.toLowerCase());
+  // };
+  // const handleChange = (e) => {
+  //   setText(e.target.value);
+  // };
 
   return (
     <div className="container">
       <h1>About Page</h1>
-      <div className="mb-3">
+      {/* <div className="mb-3">
         <textarea
           className="form-control"
           id="uppercase"
@@ -63,9 +63,9 @@ const About = () => {
           class
           {s.class}
         </p>
-      </div>
+      </div> */}
       <div className="row">
-        {articles.map((e) => {
+        {product.map((e) => {
           return (
             <div className="col-md-3">
               <div key={e.id}>
@@ -73,14 +73,14 @@ const About = () => {
                   <img
                     src={e.urlToImage || dog}
                     class="card-img-top"
-                    alt={e.author}
+                    alt="dog image"
                   />
                   <div class="card-body">
                     <h5 class="card-title">{e.title}</h5>
                     <p class="card-text">{e.description}</p>
-                    {/* <h4>Price: Rs.{e.price}</h4> */}
-                    <a href={e.url} target="_blank" class="btn btn-primary">
-                      Read more
+                    <h4>Price: Rs.{e.price}</h4>
+                    <a href="" target="_blank" class="btn btn-primary">
+                      Add to cart
                     </a>
                   </div>
                 </div>

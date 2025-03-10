@@ -1,29 +1,26 @@
-import React from "react";
+import React, { useReducer } from "react";
 import ProductContext from "./productContext";
+import { cartReducer } from "./Reducer";
 
 const ProductState = (props) => {
-  const [articles, setArticles] = React.useState([]);
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=d125d26fbc6d49728775e0b977bddc5a"
-      );
-      if (!response) {
-        throw new Error(response.status);
-      }
-      const data = await response.json();
-      setArticles(data.articles);
-      console.log(data.articles);
-    } catch (error) {
-      console.error("fetching error", error);
-    }
-  };
+  // const [articles, setArticles] = React.useState([]);
 
-  const s = {
-    title: "ramesh",
-    age: 20,
-    class: 11,
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       "https://newsapi.org/v2/top-headlines?country=us&apiKey=d125d26fbc6d49728775e0b977bddc5a"
+  //     );
+  //     if (!response) {
+  //       throw new Error(response.status);
+  //     }
+  //     const data = await response.json();
+  //     setArticles(data.articles);
+  //     console.log(data.articles);
+  //   } catch (error) {
+  //     console.error("fetching error", error);
+  //   }
+  // };
+
   const product = [
     {
       _id: 1,
@@ -47,8 +44,13 @@ const ProductState = (props) => {
       instock: 4,
     },
   ];
+
+  const [state, dispatch] = useReducer(cartReducer, {
+    products: product,
+    cart: [],
+  });
   return (
-    <ProductContext.Provider value={{ s, product, articles, fetchData }}>
+    <ProductContext.Provider value={{ product, state, dispatch }}>
       {props.children}
     </ProductContext.Provider>
   );
