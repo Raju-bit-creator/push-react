@@ -1,14 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import productContext from "../context/productContext";
 import dog from "../assets/dog.jpg";
+import { Link } from "react-router-dom";
 
 const About = () => {
   const context = useContext(productContext);
   const {
     state: { cart },
+    dispatch,
     product,
   } = context;
-  // console.log("this is state cart", state.cart);
+  console.log("this is state cart", cart);
 
   console.log("total products:", product);
 
@@ -65,23 +67,53 @@ const About = () => {
         </p>
       </div> */}
       <div className="row">
-        {product.map((e) => {
+        {product.map((item) => {
           return (
             <div className="col-md-3">
-              <div key={e.id}>
-                <div class="card">
+              <div key={item._id}>
+                <div className="card">
                   <img
-                    src={e.urlToImage || dog}
-                    class="card-img-top"
+                    src={item.urlToImage || dog}
+                    className="card-img-top"
                     alt="dog image"
                   />
-                  <div class="card-body">
-                    <h5 class="card-title">{e.title}</h5>
-                    <p class="card-text">{e.description}</p>
-                    <h4>Price: Rs.{e.price}</h4>
-                    <a href="" target="_blank" class="btn btn-primary">
-                      Add to cart
-                    </a>
+                  <div className="card-body">
+                    <h5 className="card-title">{item.title}</h5>
+                    <p className="card-text">{item.description}</p>
+                    <h4>Price: Rs.{item.price}</h4>
+                    {cart && cart.some((p) => p._id === item._id) ? (
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => {
+                          dispatch({
+                            type: "REMOVE_FROM_CART",
+                            payload: item,
+                          });
+                        }}
+                      >
+                        remove from cart
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={() => {
+                          dispatch({
+                            type: "ADD_TO_CART",
+                            payload: item,
+                          });
+                        }}
+                      >
+                        add to cart
+                      </button>
+                    )}
+                    {/* <button type="button" className="btn btn-primary mx-2">
+                      add to cart
+                    </button>
+                    <button type="button" className="btn btn-danger">
+                      remove from cart
+                    </button> */}
                   </div>
                 </div>
               </div>

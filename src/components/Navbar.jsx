@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
+import productContext from "../context/productContext";
 
 const Navbar = (props) => {
+  const context = useContext(productContext);
+  const {
+    state: { cart },
+  } = context;
   return (
     <div>
       <nav
@@ -96,7 +101,7 @@ const Navbar = (props) => {
             >
               <FaShoppingCart />
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                0
+                {cart.length}
               </span>
             </button>
 
