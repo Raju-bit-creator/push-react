@@ -95,15 +95,17 @@ const Navbar = (props) => {
               </li>
             </ul>
 
-            <button
-              type="button"
-              className="btn btn-primary mx-4 position-relative"
-            >
-              <FaShoppingCart />
-              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {cart.length}
-              </span>
-            </button>
+            <Link to="/cartitems">
+              <button
+                type="button"
+                className="btn btn-primary mx-4 position-relative"
+              >
+                <FaShoppingCart />
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {cart.length}
+                </span>
+              </button>
+            </Link>
 
             <button onClick={props.toggleMode} className="btn btn-primary">
               {props.text}

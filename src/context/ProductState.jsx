@@ -43,6 +43,13 @@ const ProductState = (props) => {
       price: 40,
       instock: 4,
     },
+    {
+      _id: 4,
+      title: "Grapes",
+      description: "Grapes juice  is sweet",
+      price: 40,
+      instock: 4,
+    },
   ];
 
   const [state, dispatch] = useReducer(cartReducer, {
