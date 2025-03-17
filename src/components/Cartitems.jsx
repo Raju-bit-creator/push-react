@@ -9,6 +9,7 @@ const Cartitems = () => {
     state: { cart },
     dispatch,
   } = context;
+  const Total = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
 
   return (
     <div className="container cart-page">
@@ -31,18 +32,45 @@ const Cartitems = () => {
                   <h5>Price: Rs.{item.price}</h5>
                 </div>
                 <div className="col-md-2">
-                  <select value={item.qty}>
-                    <option value="1">1</option>
-                    <option value="1">2</option>
+                  <select
+                    value={item.qty}
+                    onChange={(e) =>
+                      dispatch({
+                        type: "UPDATE_CART_ITEM",
+                        payload: { id: item._id, qty: e.target.value },
+                      })
+                    }
+                    className="form-control"
+                  >
+                    {[...Array(item.instock).keys()].map((x) => (
+                      <option key={x + 1} value={x + 1}>
+                        {x + 1}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className="col-md-2">
-                  <MdDelete />
+                  <button
+                    className="btn btn-light"
+                    onClick={() =>
+                      dispatch({
+                        type: "REMOVE_FROM_CART",
+                        payload: item,
+                      })
+                    }
+                  >
+                    <MdDelete />
+                  </button>
                 </div>
               </div>
             </li>
           ))}
         </ul>
+      </div>
+      <div className="sumary">
+        <div className="title">Total items: {cart.length}</div>
+        <h4>Sub-total: Rs. {Total}</h4>
+        <button className="btn btn-primary">Proceed to checkout</button>
       </div>
     </div>
   );
