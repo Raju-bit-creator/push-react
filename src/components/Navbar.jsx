@@ -8,6 +8,9 @@ const Navbar = (props) => {
   const {
     state: { cart },
   } = context;
+
+  console.log("this is cart", cart);
+
   return (
     <div>
       <nav

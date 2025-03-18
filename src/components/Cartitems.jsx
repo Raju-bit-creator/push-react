@@ -12,7 +12,7 @@ const Cartitems = () => {
   const Total = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
 
   return (
-    <div className="container cart-page">
+    <div className="container mt-4 cart-page">
       <div className="productcontainer-cart">
         <ul className="product-list">
           {cart.map((item) => (
@@ -37,7 +37,7 @@ const Cartitems = () => {
                     onChange={(e) =>
                       dispatch({
                         type: "UPDATE_CART_ITEM",
-                        payload: { id: item._id, qty: e.target.value },
+                        payload: { _id: item._id, qty: e.target.value },
                       })
                     }
                     className="form-control"
