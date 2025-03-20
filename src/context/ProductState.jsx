@@ -20,7 +20,7 @@ const ProductState = (props) => {
   //     console.error("fetching error", error);
   //   }
   // };
-
+  const [products, setProducts] = React.useState([]);
   const product = [
     {
       _id: 1,
@@ -56,8 +56,23 @@ const ProductState = (props) => {
     products: product,
     cart: [],
   });
+
+  const allProduct = async () => {
+    const response = await fetch("https://api.example.com/products", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("token"),
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+    setProducts(data);
+  };
   return (
-    <ProductContext.Provider value={{ product, state, dispatch }}>
+    <ProductContext.Provider
+      value={{ product, products, allProduct, state, dispatch }}
+    >
       {props.children}
     </ProductContext.Provider>
   );
