@@ -14,6 +14,7 @@ import User from "./components/Userdetail";
 import ClassBase from "./components/ClassBase";
 import ProductState from "./context/productState";
 import Cartitems from "./components/Cartitems";
+import AddProduct from "./components/AddProduct";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -66,6 +67,7 @@ function App() {
             <Route path="/:user_Id/:userName" element={<User />} />
             <Route path="/users" element={<Userlist />} />
             <Route path="/cartitems" element={<Cartitems />} />
+            <Route path="/addproduct" element={<AddProduct />} />
           </Routes>
         </Router>
       </ProductState>

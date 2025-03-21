@@ -9,6 +9,7 @@ const About = () => {
     state: { cart },
     dispatch,
     product,
+    products,
   } = context;
   console.log("this is state cart", cart);
 
