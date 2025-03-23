@@ -58,20 +58,77 @@ const ProductState = (props) => {
   });
 
   const allProduct = async () => {
-    const response = await fetch("https://api.example.com/products", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token": localStorage.getItem("token"),
-      },
-    });
-    const data = await response.json();
-    console.log(data);
-    setProducts(data);
+    try {
+      const response = await fetch("https://api.example.com/products", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      setProducts(data);
+    } catch (error) {
+      console.error("internal server error", error);
+      res.status(500).send("internal server error");
+    }
   };
+
+  // edit product
+  const editProduct = async (id) => {
+    try {
+      const response = await fetch(`https://api.example.com/products/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+        body: JSON.stringify({ title, description, price, instock }),
+      });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("internal server error", error);
+      throw new Error("failed to update item");
+    }
+  };
+
+  //  delete product
+  const deleteProduct = async (id) => {
+    try {
+      const response = await fetch(`https://api.example.com/products/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+      });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      console.log("product deleted");
+    } catch (error) {
+      console.error("internal server error", error);
+      throw new Error("failed to update item");
+    }
+  };
+
   return (
     <ProductContext.Provider
-      value={{ product, products, allProduct, state, dispatch }}
+      value={{
+        product,
+        products,
+        allProduct,
+        editProduct,
+        deleteProduct,
+        state,
+        dispatch,
+      }}
     >
       {props.children}
     </ProductContext.Provider>

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import productContext from "../context/productContext";
 import dog from "../assets/dog.jpg";
 import { Link } from "react-router-dom";
+import { BsThreeDots } from "react-icons/bs";
 
 const About = () => {
   const context = useContext(productContext);
@@ -12,8 +13,16 @@ const About = () => {
     products,
   } = context;
   console.log("this is state cart", cart);
+  const [menuVisible, setMenuVisible] = useState(false);
 
   console.log("total products:", product);
+
+  const toggleMenu = (id) => {
+    setMenuVisible((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+  };
 
   // const [text, setText] = useState(""); //initialization
   // const handleUppercase = () => {
@@ -79,7 +88,16 @@ const About = () => {
                     alt="dog image"
                   />
                   <div className="card-body">
-                    <h5 className="card-title">{item.title}</h5>
+                    <div className="title-content">
+                      <h5 className="card-title">{item.title}</h5>
+                      <BsThreeDots onClick={() => toggleMenu(item._id)} />
+                      {menuVisible[item._id] && (
+                        <div className="menu-options">
+                          <button>Edit</button>
+                          <button>Delete</button>
+                        </div>
+                      )}
+                    </div>
                     <p className="card-text">{item.description}</p>
                     <h4>Price: Rs.{item.price}</h4>
                     {cart && cart.some((p) => p._id === item._id) ? (
