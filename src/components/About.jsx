@@ -3,6 +3,7 @@ import productContext from "../context/productContext";
 import dog from "../assets/dog.jpg";
 import { Link } from "react-router-dom";
 import { BsThreeDots } from "react-icons/bs";
+import EditProductModal from "./EditProductModal";
 
 const About = () => {
   const context = useContext(productContext);
@@ -11,9 +12,13 @@ const About = () => {
     dispatch,
     product,
     products,
+    deleteProduct,
+    editProduct,
   } = context;
   console.log("this is state cart", cart);
   const [menuVisible, setMenuVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   console.log("total products:", product);
 
@@ -22,6 +27,25 @@ const About = () => {
       ...prevState,
       [id]: !prevState[id],
     }));
+  };
+
+  const openEditModal = (product) => {
+    setSelectedProduct(product);
+    setModalVisible(true);
+  };
+  const closeEditModal = () => {
+    setModalVisible(false);
+    setSelectedProduct(null);
+  };
+  const saveEdit = (updateData) => {
+    console.log("edit product");
+    editProduct(updateData, selectedProduct._id);
+  };
+
+  const handleDelete = async (id) => {
+    console.log("product deleted");
+
+    // await deleteProduct(id)
   };
 
   // const [text, setText] = useState(""); //initialization
@@ -93,8 +117,12 @@ const About = () => {
                       <BsThreeDots onClick={() => toggleMenu(item._id)} />
                       {menuVisible[item._id] && (
                         <div className="menu-options">
-                          <button>Edit</button>
-                          <button>Delete</button>
+                          <button onClick={() => openEditModal(item)}>
+                            Edit
+                          </button>
+                          <button onClick={() => handleDelete(item._id)}>
+                            Delete
+                          </button>
                         </div>
                       )}
                     </div>
@@ -135,6 +163,15 @@ const About = () => {
                     </button> */}
                   </div>
                 </div>
+                {modalVisible &&
+                  selectedProduct &&
+                  selectedProduct._id === item._id && (
+                    <EditProductModal
+                      product={selectedProduct}
+                      onClose={closeEditModal}
+                      onSave={saveEdit}
+                    />
+                  )}
               </div>
             </div>
           );

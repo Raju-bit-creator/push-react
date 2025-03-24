@@ -76,16 +76,20 @@ const ProductState = (props) => {
   };
 
   // edit product
-  const editProduct = async (id) => {
+  const editProduct = async (selectedProduct, updateData) => {
+    const { title, description, price, instock } = updateData;
     try {
-      const response = await fetch(`https://api.example.com/products/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("token"),
-        },
-        body: JSON.stringify({ title, description, price, instock }),
-      });
+      const response = await fetch(
+        `https://api.example.com/products/${selectedProduct}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+          body: JSON.stringify({ title, description, price, instock }),
+        }
+      );
       if (!response.ok) {
         throw new Error(response.statusText);
       }
