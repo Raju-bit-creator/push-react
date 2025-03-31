@@ -3,6 +3,7 @@ const User = require("../model/User");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const fetchUser = require("../middleware/Fetchuser");
 const router = express.Router();
 
 const secret = process.env.JWT_SECRET;
@@ -52,5 +53,51 @@ router.post(
 );
 
 // login
+router.post(
+  "/login",
+  [
+    body("email").isEmail().withMessage("Please enter a valid email"),
+    body("password")
+      .isLength({ min: 5 })
+      .withMessage("Password must be atleast 5 characters"),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const { email, password } = req.body; //destructuring
+    try {
+      let user = await User.findOne({ email });
+      if (!user) {
+        return res
+          .status(400)
+          .send({ message: "Your are not register user so register first" });
+      }
+      const passwordCompare = await bcrypt.compare(password, user.password);
+      if (!passwordCompare) {
+        return res.status(400).send({ message: "Invalid credential" });
+      }
+      const data = {
+        user: {
+          id: user.id,
+        },
+      };
+      const authToken = jwt.sign(data, secret);
+      res.json({ user, authToken });
+    } catch (error) {
+      res.status(500).send("internal server error");
+    }
+  }
+);
 //user detail
+router.get("/getuser", fetchUser, async (req, res) => {
+  try {
+    userId = req.user.id;
+    const user = await User.findById(userId).select("-password");
+    res.json(user);
+  } catch (error) {
+    res.status(500).send("internal server error");
+  }
+});
 module.exports = router;
