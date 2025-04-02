@@ -1,7 +1,56 @@
 const express = require("express");
+const { body, validationResult } = require("express-validator");
+const fetchUser = require("../middleware/Fetchuser");
+const Product = require("../model/Product");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send("Hello, World!");
+// router.get("/", (req, res) => {
+//   res.send("Hello, World!");
+// });
+
+//get product
+router.get("/getproduct", fetchUser, async (req, res) => {
+  try {
+    const products = await Product.find({ user: req.user.id });
+    res.json(products);
+  } catch (error) {
+    res.status(500).send("internal server error");
+  }
 });
+
+//crate product
+router.post(
+  "/addproduct",
+  fetchUser,
+  body("title")
+    .isLength({ min: 3 })
+    .withMessage("Product name must be min length three"),
+  body("description")
+    .isLength({ min: 5 })
+    .withMessage("Product description must be min length five"),
+  body("price").isNumeric().withMessage("Price must be a number"),
+  body("instock").isNumeric().withMessage("Price must be a number"),
+
+  async (req, res) => {
+    console.log("this is req body", req.body);
+    try {
+      const { title, description, price, instock } = req.body;
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+      const product = new Product({
+        title,
+        description,
+        price,
+        instock,
+        user: req.user.id,
+      });
+      const saveProduct = await product.save();
+      res.json(saveProduct);
+    } catch (error) {
+      res.status(500).send("internal server error");
+    }
+  }
+);
 module.exports = router;

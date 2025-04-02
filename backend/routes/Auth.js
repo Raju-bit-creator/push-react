@@ -100,4 +100,7 @@ router.get("/getuser", fetchUser, async (req, res) => {
     res.status(500).send("internal server error");
   }
 });
+
+// update user profile
+
 module.exports = router;
