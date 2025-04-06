@@ -22,8 +22,8 @@ const Signup = () => {
       body: JSON.stringify({ name, email, password }),
     });
     const data = await response.json();
-    if (data.success) {
-      localStorage.setItem("token", "dddfddsfddd");
+    if (data) {
+      localStorage.setItem("token", data.authToken);
       navigate("/login");
     }
 

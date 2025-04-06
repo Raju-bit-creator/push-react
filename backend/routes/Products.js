@@ -39,11 +39,17 @@ router.post(
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
+      let image = req.files.map((el) => {
+        return el.filename;
+      });
+      console.log(image);
+
       const product = new Product({
         title,
         description,
         price,
         instock,
+        image,
         user: req.user.id,
       });
       const saveProduct = await product.save();
