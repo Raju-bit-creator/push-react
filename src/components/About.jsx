@@ -12,10 +12,11 @@ const About = () => {
     dispatch,
     product,
     products,
+    allProduct,
     deleteProduct,
     editProduct,
   } = context;
-  console.log("this is state cart", cart);
+  console.log("this is state products", products);
   const [menuVisible, setMenuVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -47,6 +48,9 @@ const About = () => {
 
     // await deleteProduct(id)
   };
+  useEffect(() => {
+    allProduct();
+  }, []);
 
   // const [text, setText] = useState(""); //initialization
   // const handleUppercase = () => {
@@ -101,78 +105,76 @@ const About = () => {
         </p>
       </div> */}
       <div className="row">
-        {product.map((item) => {
+        {products.map((item) => {
           return (
-            <div className="col-md-3">
-              <div key={item._id}>
-                <div className="card">
-                  <img
-                    src={item.urlToImage || dog}
-                    className="card-img-top"
-                    alt="dog image"
-                  />
-                  <div className="card-body">
-                    <div className="title-content">
-                      <h5 className="card-title">{item.title}</h5>
-                      <BsThreeDots onClick={() => toggleMenu(item._id)} />
-                      {menuVisible[item._id] && (
-                        <div className="menu-options">
-                          <button onClick={() => openEditModal(item)}>
-                            Edit
-                          </button>
-                          <button onClick={() => handleDelete(item._id)}>
-                            Delete
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                    <p className="card-text">{item.description}</p>
-                    <h4>Price: Rs.{item.price}</h4>
-                    {cart && cart.some((p) => p._id === item._id) ? (
-                      <button
-                        type="button"
-                        className="btn btn-danger"
-                        onClick={() => {
-                          dispatch({
-                            type: "REMOVE_FROM_CART",
-                            payload: item,
-                          });
-                        }}
-                      >
-                        remove from cart
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        className="btn btn-primary"
-                        onClick={() => {
-                          dispatch({
-                            type: "ADD_TO_CART",
-                            payload: item,
-                          });
-                        }}
-                      >
-                        add to cart
-                      </button>
+            <div className="col-md-3" key={item._id}>
+              <div className="card">
+                <img
+                  src={`http://localhost:5000/uploads/${item.image[0]}`}
+                  className="card-img-top"
+                  alt="dog image"
+                />
+                <div className="card-body">
+                  <div className="title-content">
+                    <h5 className="card-title">{item.title}</h5>
+                    <BsThreeDots onClick={() => toggleMenu(item._id)} />
+                    {menuVisible[item._id] && (
+                      <div className="menu-options">
+                        <button onClick={() => openEditModal(item)}>
+                          Edit
+                        </button>
+                        <button onClick={() => handleDelete(item._id)}>
+                          Delete
+                        </button>
+                      </div>
                     )}
-                    {/* <button type="button" className="btn btn-primary mx-2">
+                  </div>
+                  <p className="card-text">{item.description}</p>
+                  <h4>Price: Rs.{item.price}</h4>
+                  {cart && cart.some((p) => p._id === item._id) ? (
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={() => {
+                        dispatch({
+                          type: "REMOVE_FROM_CART",
+                          payload: item,
+                        });
+                      }}
+                    >
+                      remove from cart
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={() => {
+                        dispatch({
+                          type: "ADD_TO_CART",
+                          payload: item,
+                        });
+                      }}
+                    >
+                      add to cart
+                    </button>
+                  )}
+                  {/* <button type="button" className="btn btn-primary mx-2">
                       add to cart
                     </button>
                     <button type="button" className="btn btn-danger">
                       remove from cart
                     </button> */}
-                  </div>
                 </div>
-                {modalVisible &&
-                  selectedProduct &&
-                  selectedProduct._id === item._id && (
-                    <EditProductModal
-                      product={selectedProduct}
-                      onClose={closeEditModal}
-                      onSave={saveEdit}
-                    />
-                  )}
               </div>
+              {modalVisible &&
+                selectedProduct &&
+                selectedProduct._id === item._id && (
+                  <EditProductModal
+                    product={selectedProduct}
+                    onClose={closeEditModal}
+                    onSave={saveEdit}
+                  />
+                )}
             </div>
           );
         })}

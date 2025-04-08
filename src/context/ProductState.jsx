@@ -59,13 +59,16 @@ const ProductState = (props) => {
 
   const allProduct = async () => {
     try {
-      const response = await fetch("https://api.example.com/products", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("token"),
-        },
-      });
+      const response = await fetch(
+        "http://localhost:5000/api/product/getproduct",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
       const data = await response.json();
       console.log(data);
       setProducts(data);
