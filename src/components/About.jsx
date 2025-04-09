@@ -39,14 +39,12 @@ const About = () => {
     setSelectedProduct(null);
   };
   const saveEdit = (updateData) => {
-    console.log("edit product");
+    // console.log("edit product", updateData);
     editProduct(updateData, selectedProduct._id);
   };
 
   const handleDelete = async (id) => {
-    console.log("product deleted");
-
-    // await deleteProduct(id)
+    await deleteProduct(id);
   };
   useEffect(() => {
     allProduct();

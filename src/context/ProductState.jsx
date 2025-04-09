@@ -83,7 +83,7 @@ const ProductState = (props) => {
     const { title, description, price, instock } = updateData;
     try {
       const response = await fetch(
-        `https://api.example.com/products/${selectedProduct}`,
+        `http://localhost:5000/api/product/updateproduct/${selectedProduct}`,
         {
           method: "PUT",
           headers: {
@@ -107,13 +107,16 @@ const ProductState = (props) => {
   //  delete product
   const deleteProduct = async (id) => {
     try {
-      const response = await fetch(`https://api.example.com/products/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("token"),
-        },
-      });
+      const response = await fetch(
+        `http://localhost:5000/api/product/deleteproduct/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
       if (!response.ok) {
         throw new Error(response.statusText);
       }

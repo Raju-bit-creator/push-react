@@ -63,6 +63,8 @@ router.post(
 //update product
 router.put("/updateproduct/:id", fetchUser, async (req, res) => {
   const { title, description, price, instock } = req.body; //destructuring
+  console.log("this is my req.body", req.body);
+
   try {
     const newProduct = {};
     if (title) newProduct.title = title;
