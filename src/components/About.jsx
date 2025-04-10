@@ -39,8 +39,8 @@ const About = () => {
     setSelectedProduct(null);
   };
   const saveEdit = (updateData) => {
-    // console.log("edit product", updateData);
-    editProduct(updateData, selectedProduct._id);
+    console.log("edit product", updateData);
+    editProduct(selectedProduct._id, updateData);
   };
 
   const handleDelete = async (id) => {
@@ -50,58 +50,10 @@ const About = () => {
     allProduct();
   }, []);
 
-  // const [text, setText] = useState(""); //initialization
-  // const handleUppercase = () => {
-  //   console.log("you click to uppercase");
-  //   setText(text.toUpperCase()); //mounting and update
-  // };
-  // // unmount
-  // console.log("i a first"); //render
-
-  // useEffect(() => {
-  //   console.log("i am useffect", text);
-  // }, [text]);
-  // const handleLowercase = () => {
-  //   console.log("you click to lowercase");
-  //   setText(text.toLowerCase());
-  // };
-  // const handleChange = (e) => {
-  //   setText(e.target.value);
-  // };
-
   return (
     <div className="container">
-      <h1>About Page</h1>
-      {/* <div className="mb-3">
-        <textarea
-          className="form-control"
-          id="uppercase"
-          rows="4"
-          name="text"
-          value={text}
-          onChange={handleChange}
-          placeholder="Enter your text ..."
-        ></textarea>
+      <h1>Profile Page</h1>
 
-        <button onClick={handleUppercase} className="btn btn-primary mt-4 mx-2">
-          Convert Uppercase
-        </button>
-        <button onClick={handleLowercase} className="btn btn-primary mt-4 mx-2">
-          Convert Lowercase
-        </button>
-        <button className="btn btn-primary mt-4 mx-2">Copy Text</button>
-        <button className="btn btn-danger mt-4 mx-2">Clear Text</button>
-        <h6>total word: {text.split(" ").length}</h6>
-        <h6>total sentences: {text.split(".").length}</h6>
-        <h4>preview</h4>
-
-        <p>{text}</p>
-        <p>
-          my friend name is {s.name} and his age is {s.age} and he is reading in
-          class
-          {s.class}
-        </p>
-      </div> */}
       <div className="row">
         {products.map((item) => {
           return (
@@ -156,12 +108,6 @@ const About = () => {
                       add to cart
                     </button>
                   )}
-                  {/* <button type="button" className="btn btn-primary mx-2">
-                      add to cart
-                    </button>
-                    <button type="button" className="btn btn-danger">
-                      remove from cart
-                    </button> */}
                 </div>
               </div>
               {modalVisible &&

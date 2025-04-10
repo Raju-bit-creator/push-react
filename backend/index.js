@@ -26,12 +26,11 @@ const ensureUploadsDirectoryExists = () => {
   }
 };
 
-// Call this to create the directory if it doesn't exist
 ensureUploadsDirectoryExists();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    ensureUploadsDirectoryExists(); // Ensure the directory exists before saving the file
+    ensureUploadsDirectoryExists();
     cb(null, path.join(__dirname, "uploads")); // Use absolute path
   },
   filename: function (req, file, cb) {

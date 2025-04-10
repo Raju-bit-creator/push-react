@@ -79,11 +79,11 @@ const ProductState = (props) => {
   };
 
   // edit product
-  const editProduct = async (selectedProduct, updateData) => {
+  const editProduct = async (selectedProduct_id, updateData) => {
     const { title, description, price, instock } = updateData;
     try {
       const response = await fetch(
-        `http://localhost:5000/api/product/updateproduct/${selectedProduct}`,
+        `http://localhost:5000/api/product/updateproduct/${selectedProduct_id}`,
         {
           method: "PUT",
           headers: {
