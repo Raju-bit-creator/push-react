@@ -57,10 +57,10 @@ const ProductState = (props) => {
     cart: [],
   });
 
-  const allProduct = async () => {
+  const allProduct = async (searchQuery = "") => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/product/getproduct",
+        `http://localhost:5000/api/product/getproduct?searchQuery=${searchQuery}`,
         {
           method: "GET",
           headers: {
@@ -97,6 +97,7 @@ const ProductState = (props) => {
         throw new Error(response.statusText);
       }
       const data = await response.json();
+      allProduct();
       console.log(data);
     } catch (error) {
       console.error("internal server error", error);

@@ -8,8 +8,26 @@ const router = express.Router();
 //   res.send("Hello, World!");
 // });
 
-//get product
 router.get("/getproduct", fetchUser, async (req, res) => {
+  try {
+    const searchQuery = req.query.searchQuery
+      ? {
+          title: {
+            $regex: req.query.searchQuery,
+            $options: "i",
+          },
+        }
+      : {};
+    const products = await Product.find({ ...searchQuery });
+    res.json(products);
+  } catch (error) {
+    res.status(500).send("internal server error");
+  }
+});
+
+//get product
+
+router.get("/getprofileproduct", fetchUser, async (req, res) => {
   try {
     const products = await Product.find({ user: req.user.id });
     res.json(products);

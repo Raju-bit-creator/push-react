@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import productContext from "../context/productContext";
 import dog from "../assets/dog.jpg";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { BsThreeDots } from "react-icons/bs";
 import EditProductModal from "./EditProductModal";
 
 const About = () => {
+  const params = useParams();
+  const searchQuery = params;
   const context = useContext(productContext);
   const {
     state: { cart },
@@ -47,8 +49,8 @@ const About = () => {
     await deleteProduct(id);
   };
   useEffect(() => {
-    allProduct();
-  }, []);
+    allProduct(searchQuery);
+  }, [searchQuery]);
 
   return (
     <div className="container">
@@ -60,9 +62,13 @@ const About = () => {
             <div className="col-md-3" key={item._id}>
               <div className="card">
                 <img
-                  src={`http://localhost:5000/uploads/${item.image[0]}`}
+                  src={
+                    item.image?.[0]
+                      ? `http://localhost:5000/uploads/${item.image[0]}`
+                      : dog // fallback image import
+                  }
                   className="card-img-top"
-                  alt="dog image"
+                  alt="product"
                 />
                 <div className="card-body">
                   <div className="title-content">

@@ -20,7 +20,9 @@ const Cartitems = () => {
               <div className="row cart-list">
                 <div className="col-md-2">
                   <img
-                    src={item.image || dog}
+                    src={
+                      `http://localhost:5000/uploads/${item.image[0]}` || dog
+                    }
                     style={{ height: "80px", width: "80px" }}
                     alt={item.name}
                   />

@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 
 import Footer from "./components/Footer";
 import Alert from "./components/Alert";
-import About from "./components/about";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
@@ -12,9 +12,12 @@ import Signup from "./components/Signup";
 import Userlist from "./components/Userlist";
 import User from "./components/Userdetail";
 import ClassBase from "./components/ClassBase";
-import ProductState from "./context/productState";
+
 import Cartitems from "./components/Cartitems";
 import AddProduct from "./components/AddProduct";
+import Searchresult from "./components/Searchresult";
+import ProductState from "./context/ProductState";
+import About from "./components/About";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -68,6 +71,7 @@ function App() {
             <Route path="/users" element={<Userlist />} />
             <Route path="/cartitems" element={<Cartitems />} />
             <Route path="/addproduct" element={<AddProduct />} />
+            <Route path="/search/:searchQuery" element={<Searchresult />} />
           </Routes>
         </Router>
       </ProductState>
